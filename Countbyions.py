@@ -184,33 +184,37 @@ for i in data.index:
                 match_ys.append(yy_ion)
                 delta_ys[yy_ion] = int((mw_yy - obsi) * 100) / 100
                 int_ys[yy_ion] = intensity
-    print(int_ys)
-            #for (i = 1 i<=flag_bNL i++)[
-            #    mz_nl = 98 * i
-            #    if (abs (mw_b -AAmss[NeutralLoss2]*i- obsi) < 0.02)[
-            #        bnl_ion = "b\(k\)\-mz_nl"
-            #        push (match_b, bnl_ion)
-            #        hash_delta_b[bnl_ion] = int ((mw_b -AAmss[NeutralLoss2]*i- obsi) * 100) / 100
-            #    ]
-            #    if (abs (mw_bb -((AAmss[NeutralLoss2]*i)/2)- obsi) < 0.02)[
-            #        bbnl_ion = "b\(k\)\-mz_nl\+\+"
-            #        push (match_b, bbnl_ion)
-            #        hash_delta_b[bbnl_ion] = int ((mw_bb -((AAmss[NeutralLoss2]*i)/2)- obsi) * 100) / 100
-            #    ]
-            #]
-            #for (i = 1 i<=flag_yNL i++)[
-            #    mz_nl = 98 * i
-            #    if (abs (mw_y -AAmss[NeutralLoss2]*i- obsi) < 0.02)[
-            #        ynl_ion = "y\(k\)\-mz_nl"
-            #        push (match_y, ynl_ion)
-            #        hash_delta_y[ynl_ion] = int ((mw_y -AAmss[NeutralLoss2]*i- obsi) * 100) / 100
-            #    ]
-            #    if (abs (mw_yy -((AAmss[NeutralLoss2]*i)/2)- obsi) < 0.02)[
-            #        yynl_ion = "y\(k\)\-mz_nl\+\+"
-            #        push (match_y, yynl_ion)
-            #        hash_delta_y[yynl_ion] = int ((mw_yy -((AAmss[NeutralLoss2]*i)/2)- obsi) * 100) / 100
-            #    ]
-            #]
+        data.ix[i, 'y_ions'] = ",".join(k+": "+str(v) for k, v in int_ys.items())
+        data.ix[i, 'b_ions'] = ",".join(k+": "+str(v) for k, v in int_bs.items())
+data.to_csv('test.csv')
+
+            for i in range(flag_bNL):
+                i += 1
+                mz_nl = 98 * i
+                if (abs (mw_b -AAmss[NeutralLoss2]*i- obsi) < 0.02)[
+                    bnl_ion = "b\(k\)\-mz_nl"
+                    push (match_b, bnl_ion)
+                    hash_delta_b[bnl_ion] = int ((mw_b -AAmss[NeutralLoss2]*i- obsi) * 100) / 100
+                ]
+                if (abs (mw_bb -((AAmss[NeutralLoss2]*i)/2)- obsi) < 0.02)[
+                    bbnl_ion = "b\(k\)\-mz_nl\+\+"
+                    push (match_b, bbnl_ion)
+                    hash_delta_b[bbnl_ion] = int ((mw_bb -((AAmss[NeutralLoss2]*i)/2)- obsi) * 100) / 100
+                ]
+            ]
+            for (i = 1 i<=flag_yNL i++)[
+                mz_nl = 98 * i
+                if (abs (mw_y -AAmss[NeutralLoss2]*i- obsi) < 0.02)[
+                    ynl_ion = "y\(k\)\-mz_nl"
+                    push (match_y, ynl_ion)
+                    hash_delta_y[ynl_ion] = int ((mw_y -AAmss[NeutralLoss2]*i- obsi) * 100) / 100
+                ]
+                if (abs (mw_yy -((AAmss[NeutralLoss2]*i)/2)- obsi) < 0.02)[
+                    yynl_ion = "y\(k\)\-mz_nl\+\+"
+                    push (match_y, yynl_ion)
+                    hash_delta_y[yynl_ion] = int ((mw_yy -((AAmss[NeutralLoss2]*i)/2)- obsi) * 100) / 100
+                ]
+            ]
 #    undef (%tmp)
 #    match_b = grep(!tmp[_]++, match_b)
 #    match_y = grep(!tmp[_]++, match_y)
